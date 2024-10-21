@@ -137,3 +137,11 @@ header .navbar .mode-toggler.dark-theme .sunny {
 main {
   flex: 1;
 }
+
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+  header .navbar .navs {
+    display: none;
+  }
+}
