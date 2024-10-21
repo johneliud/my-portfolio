@@ -7,14 +7,133 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
+a,
+li,
+ul {
+  text-decoration: none;
+  list-style: none;
+  color: var(--primary-color);
+}
+
 :root {
   --primary-color: #181b1e;
   --primary-color-2: #f8f9fa;
   --secondary-color: #5f6266;
   --secondary-color-2: #cfd1d4;
   --accent-color: #a5a9ae;
+
+  --transition: 1s ease-in-out;
 }
 
 html {
   height: 100%;
+}
+
+body {
+  /* max-width: 1200px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 110vh;
+  background-color: var(--primary-color-2);
+  color: var(--primary-color);
+  margin: 0 auto;
+  transition: background-color var(--transition);
+}
+
+body.dark-theme {
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
+}
+
+body.dark-theme a,
+body.dark-theme li {
+  color: var(--primary-color-2);
+}
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+header .navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+header .navbar .logo a {
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+header .navbar .navs {
+  width: 50%;
+}
+
+header .navbar .navs .nav-links {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header .navbar .navs .nav-links .link {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+header .navbar .navs .nav-links .link:hover {
+  color: var(--secondary-color);
+}
+
+body.dark-theme header .navbar .navs .nav-links .link:hover {
+  color: var(--secondary-color-2);
+}
+
+header .navbar .navs .nav-links .link.active {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+body.dark-theme header .navbar .navs .nav-links .link.active {
+  border-bottom: 2px solid var(--primary-color-2);
+}
+
+header .navbar .mode-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header .navbar .mode-toggler ion-icon {
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+header .navbar .mode-toggler .moon {
+  display: none;
+}
+
+header .navbar .mode-toggler.dark-theme .moon {
+  display: flex;
+}
+
+header .navbar .mode-toggler.dark-theme .sunny {
+  display: none;
+}
+
+main {
+  flex: 1;
 }
