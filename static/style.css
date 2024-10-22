@@ -70,7 +70,7 @@ header .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 15px 20px;
 }
 
 header .navbar .logo a {
@@ -140,29 +140,42 @@ header .navbar .hamburger-menu {
   cursor: pointer;
   display: grid;
   place-items: center;
-  row-gap: 5px;
+  position: relative;
+  height: 30px;
 }
 
 header .navbar .hamburger-menu .line {
   width: 50%;
   height: 3px;
   background-color: var(--primary-color);
+  position: absolute;
+  transition: all 0.3s ease;
 }
 
-body.dark-mode header .hamburger-menu .line {
-  background-color: var(--primary-color-2);
+.hamburger-menu .line-1 {
+  top: 25%;
+}
+
+.hamburger-menu .line-2 {
+  top: 50%;
+}
+
+.hamburger-menu .line-3 {
+  top: 75%;
+}
+
+header .navbar .hamburger-menu.active .line-1 {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 header .navbar .hamburger-menu.active .line-2 {
   display: none;
 }
 
-header .navbar .hamburger-menu.active .line-1 {
-  transform: rotate(45deg);
-}
-
 header .navbar .hamburger-menu.active .line-3 {
-  transform: rotate(-45deg);
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
 }
 
 main {
