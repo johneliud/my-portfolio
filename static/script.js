@@ -7,11 +7,11 @@ const toggleTheme = () => {
 
 modeToggler.addEventListener('click', toggleTheme);
 
-const navs = document.querySelectorAll('.navbar .navs .nav-links .link');
+const navLinks = document.querySelectorAll('.nav-links .link');
 
-navs.forEach((link) => {
+navLinks.forEach((link) => {
   link.addEventListener('click', () => {
-    navs.forEach((nav) => {
+    navLinks.forEach((nav) => {
       nav.classList.remove('active');
     });
 
@@ -23,4 +23,10 @@ const hamburgerMenu = document.querySelector('.hamburger-menu');
 
 hamburgerMenu.addEventListener('click', () => {
   hamburgerMenu.classList.toggle('active');
+});
+
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    hamburgerMenu.classList.remove('active');
+  });
 });
