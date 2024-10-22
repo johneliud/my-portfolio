@@ -18,3 +18,9 @@ navs.forEach((link) => {
     link.classList.add('active');
   });
 });
+
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+hamburgerMenu.addEventListener('click', () => {
+  hamburgerMenu.classList.toggle('active');
+});
