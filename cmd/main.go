@@ -26,6 +26,7 @@ func main() {
 	})
 
 	http.HandleFunc("/", controllers.IndexHandler)
+	http.HandleFunc("/contact", controllers.FormHandler)
 
 	var port string
 
