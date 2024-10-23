@@ -211,7 +211,36 @@ main {
 
 main section {
   width: 100%;
+  height: 70vh;
   margin: 10px auto;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+section .error-container {
+  width: 100%;
+  padding: 20px 0;
+  display: grid;
+  place-items: center;
+  row-gap: 50px;
+}
+
+.error-container .status-code {
+  font-size: 80px;
+}
+
+.error-container a {
+  padding: 10px 25px;
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
+  border-radius: 10px;
+  margin-top: 50px;
+}
+
+body.dark-theme .error-container a {
+  background-color: var(--primary-color-2);
+  color: var(--primary-color);
 }
 
 /* Media Queries */
