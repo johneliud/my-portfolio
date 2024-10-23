@@ -63,8 +63,8 @@
     <main>
       <section class="error">
         <div class="error-container">
-          <h2 class="status-code">404</h2>
-          <p class="status-message">Page Not Found</p>
+          <h2 class="status-code">{{ .StatusCode }}</h2>
+          <p class="status-message">{{ .Message }}</p>
           <a href="/">Go Back Home</a>
         </div>
       </section>
