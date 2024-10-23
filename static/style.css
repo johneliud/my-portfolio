@@ -87,6 +87,7 @@ header .navbar .navs .nav-links {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: background-color var(--transition);
 }
 
 header .navbar .navs .nav-links .link {
@@ -110,27 +111,32 @@ body.dark-theme header .navbar .navs .nav-links .link.active {
   border-bottom: 2px solid var(--primary-color-2);
 }
 
-header .navbar .mode-toggler {
+header .navbar .mode-toggler,
+header .navbar .mode-toggler-large {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-header .navbar .mode-toggler ion-icon {
+header .navbar .mode-toggler ion-icon,
+header .navbar .mode-toggler-large ion-icon {
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
 }
 
-header .navbar .mode-toggler .moon {
+header .navbar .mode-toggler .moon,
+header .navbar .mode-toggler-large .moon {
   display: none;
 }
 
-header .navbar .mode-toggler.dark-theme .moon {
+header .navbar .mode-toggler.dark-theme .moon,
+header .navbar .mode-toggler-large.dark-theme .moon {
   display: flex;
 }
 
-header .navbar .mode-toggler.dark-theme .sunny {
+header .navbar .mode-toggler.dark-theme .sunny,
+header .navbar .mode-toggler-large.dark-theme .sunny {
   display: none;
 }
 
@@ -212,6 +218,10 @@ main {
   header .navbar .mode-toggler {
     margin-left: 20px;
   }
+
+  header .navbar .mode-toggler {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -250,6 +260,10 @@ main {
     border-top: 1px solid var(--secondary-color-2);
     width: 100%;
     justify-content: flex-start;
+  }
+
+  header .navbar .mode-toggler-large {
+    display: none;
   }
 
   body.dark-theme header .navbar .mode-toggler {
