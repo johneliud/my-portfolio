@@ -49,7 +49,9 @@ body.dark-theme {
 
 body.dark-theme a,
 body.dark-theme li,
-body.dark-theme li ion-icon {
+body.dark-theme li ion-icon,
+body.dark-theme h2,
+body.dark-theme label {
   color: var(--primary-color-2);
 }
 
@@ -215,6 +217,7 @@ main section {
   margin: 10px auto;
 }
 
+/* Hero */
 main .hero .container {
   width: 100%;
   display: flex;
@@ -255,7 +258,13 @@ main .hero .container .profile-details .introduction-container p:last-child {
   font-size: 1.5rem;
 }
 
-body.dark-theme main .hero .container .profile-details .introduction-container p {
+body.dark-theme
+  main
+  .hero
+  .container
+  .profile-details
+  .introduction-container
+  p {
   color: var(--primary-color-2);
 }
 
@@ -267,12 +276,116 @@ main .hero .container .profile-details .contact-container a {
   padding: 10px 15px;
   border: 2px solid var(--span-color);
   border-radius: 10px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 main .hero .container .profile-details .contact-container a:hover {
   background-color: var(--span-color);
   color: var(--primary-color-2);
+}
+
+/* Contact */
+.contact {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid var(--secondary-color-2);
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: var(--primary-color-2);
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea {
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
+  border-color: var(--secondary-color);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-btn {
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+body.dark-theme .submit-btn {
+  background-color: var(--primary-color-2);
+  color: var(--primary-color);
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+.form-message {
+  padding: 12px;
+  border-radius: 4px;
+  text-align: center;
+  display: none;
+}
+
+.form-message.success {
+  display: block;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+  display: block;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 /* Media Queries */
@@ -357,5 +470,19 @@ main .hero .container .profile-details .contact-container a:hover {
 
   header .navbar .navs .mode-toggler {
     display: none;
+  }
+
+  .contact {
+    padding: 20px;
+  }
+
+  .contact h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .submit-btn {
+    padding: 10px;
   }
 }
