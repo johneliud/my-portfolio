@@ -1,11 +1,15 @@
-const modeToggler = document.querySelector('.navbar .mode-toggler');
+const modeToggler = document.querySelectorAll('.change-mode');
 
 const toggleTheme = () => {
-  modeToggler.classList.toggle('dark-theme');
   document.body.classList.toggle('dark-theme');
+  modeToggler.forEach((toggler) => {
+    toggler.classList.toggle('dark-theme');
+  });
 };
 
-modeToggler.addEventListener('click', toggleTheme);
+modeToggler.forEach((toggler) => {
+  toggler.addEventListener('click', toggleTheme);
+});
 
 const navLinks = document.querySelectorAll('.nav-links .link');
 
