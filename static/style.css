@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans', sans-serif;
+  color: var(--primary-color);
 }
 
 a,
@@ -12,7 +13,6 @@ li,
 ul {
   text-decoration: none;
   list-style: none;
-  color: var(--primary-color);
 }
 
 :root {
@@ -21,6 +21,7 @@ ul {
   --secondary-color: #5f6266;
   --secondary-color-2: #cfd1d4;
   --accent-color: #a5a9ae;
+  --span-color: #ffaa00;
 
   --transition: 1s ease-in-out;
 }
@@ -47,7 +48,8 @@ body.dark-theme {
 }
 
 body.dark-theme a,
-body.dark-theme li {
+body.dark-theme li,
+body.dark-theme li ion-icon {
   color: var(--primary-color-2);
 }
 
@@ -59,8 +61,14 @@ header {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 1000;
+  background-color: var(--primary-color-2);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color var(--transition);
+}
+
+body.dark-theme header {
+  background-color: var(--primary-color);
 }
 
 header .navbar {
@@ -123,6 +131,11 @@ header .navbar .mode-toggler-large ion-icon {
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
+}
+
+body.dark-theme header .mode-toggler ion-icon,
+body.dark-theme header .mode-toggler-large ion-icon {
+  color: var(--primary-color-2);
 }
 
 header .navbar .mode-toggler .moon,
@@ -192,7 +205,74 @@ header .navbar .hamburger-menu.active .nav-links {
 }
 
 main {
+  width: 100%;
   flex: 1;
+  padding: 20px 40px;
+}
+
+main section {
+  width: 100%;
+  margin: 10px auto;
+}
+
+main .hero .container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main .hero .container .profile-details,
+main .hero .container .profile-image {
+  width: 50%;
+  display: grid;
+  row-gap: 100px;
+}
+
+main .hero .container .profile-details .introduction-container {
+  display: grid;
+  row-gap: 5px;
+}
+
+main .hero .container .profile-details .introduction-container p:first-child {
+  font-size: 36px;
+}
+
+main
+  .hero
+  .container
+  .profile-details
+  .introduction-container
+  p:first-child
+  .name {
+  text-transform: capitalize;
+  color: var(--span-color);
+  font-weight: 900;
+  font-family: 'Borel', sans-serif;
+}
+
+main .hero .container .profile-details .introduction-container p:last-child {
+  font-size: 1.5rem;
+}
+
+body.dark-theme main .hero .container .profile-details .introduction-container p {
+  color: var(--primary-color-2);
+}
+
+main .hero .container .profile-details .contact-container {
+  width: 100%;
+}
+
+main .hero .container .profile-details .contact-container a {
+  padding: 10px 15px;
+  border: 2px solid var(--span-color);
+  border-radius: 10px;
+  transition: all .3s ease-in-out;
+}
+
+main .hero .container .profile-details .contact-container a:hover {
+  background-color: var(--span-color);
+  color: var(--primary-color-2);
 }
 
 /* Media Queries */
@@ -242,7 +322,7 @@ main {
     z-index: 10;
     display: none;
     background-color: var(--primary-color-2);
-    width: 100%;    
+    width: 100%;
   }
 
   header .navbar .hamburger-menu.active + .navs .nav-links {
