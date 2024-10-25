@@ -34,7 +34,6 @@ func main() {
 
 	http.HandleFunc("/", controllers.IndexHandler)
 	http.HandleFunc("/contact", controllers.FormHandler)
-	http.HandleFunc("/api/contact", controllers.ErrorHandler(controllers.FormHandler))
 
 	port := utils.GetPort()
 	log.Printf("Server starting on http://localhost%v", port)
