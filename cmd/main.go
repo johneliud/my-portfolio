@@ -36,6 +36,7 @@ func main() {
 
 	http.HandleFunc("/", controllers.IndexHandler)
 	http.HandleFunc("/contact", controllers.FormHandler)
+	http.HandleFunc("/resume", controllers.ResumeHandler)
 
 	port := utils.GetPort()
 	log.Printf("Server starting on http://localhost%v", port)
