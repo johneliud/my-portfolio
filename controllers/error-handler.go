@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"html/template"
+	"log"
 	"net/http"
+	"path/filepath"
 )
 
 type ErrorPage struct {
@@ -23,6 +25,7 @@ func ErrorHandler(next http.HandlerFunc) http.HandlerFunc {
 					StatusCode: http.StatusInternalServerError,
 					Message:    "An Unexpected Error Occurred. Try Again Later",
 				})
+				log.Printf("Panic recovered: %v\n", err)
 			}
 		}()
 		next(w, r)
@@ -30,15 +33,18 @@ func ErrorHandler(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func serveErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
-	tmpl, err := template.ParseFiles("/templates/error.html")
+	tmplPath := filepath.Join("templates", "error.html")
+	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
 		http.Error(w, "An Unexpected Error Occurred. Try Again Later", http.StatusInternalServerError)
+		log.Printf("Error parsing template %s: %v\n", tmplPath, err)
 		return
 	}
 	w.WriteHeader(errorPage.StatusCode)
 
 	if err := tmpl.Execute(w, errorPage); err != nil {
-		http.Error(w, "Error Rendering Template", http.StatusInternalServerError)
+		http.Error(w, "An Unexpected Error Occurred. Try Again Later", http.StatusInternalServerError)
+		log.Printf("Error executing template: %v\n", err)
 	}
 }
 
