@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
@@ -12,10 +13,11 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.ParseFiles("templates/index.html")
+	tmplPath := filepath.Join("templates", "index.html")
+	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
 		http.Error(w, "Something Unexpected Just Happened. Try Again Later", http.StatusInternalServerError)
-		log.Printf("Error parsing file: %v\n", err)
+		log.Printf("Error parsing template %s: %v\n", tmplPath, err)
 		return
 	}
 

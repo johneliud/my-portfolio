@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 	"regexp"
 )
@@ -48,6 +49,7 @@ func (cf *ContactForm) Validate() error {
 func FormHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		MethodNotAllowedHandler(w, r)
+		log.Printf("Invalid method %s for /api/contact\n", r.Method)
 		return
 	}
 
@@ -58,6 +60,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 			StatusCode: http.StatusBadRequest,
 			Message:    "Invalid Request",
 		})
+		log.Printf("Failed to decode request body: %v\n", err)
 		return
 	}
 
@@ -66,6 +69,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 			StatusCode: http.StatusBadRequest,
 			Message:    "Bad Request",
 		})
+		log.Printf("Form validation failed: %v\n", err)
 		return
 	}
 
@@ -74,6 +78,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 			StatusCode: http.StatusInternalServerError,
 			Message:    "An Unexpected Error Occurred. Try Again Later",
 		})
+		log.Printf("Failed to send email: %v\n", err)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
@@ -81,4 +86,5 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		Success: true,
 		Message: "Message sent successfully!",
 	})
+	log.Printf("Successfully sent email from %s\n", form.Email)
 }
