@@ -126,6 +126,7 @@ header .navbar .mode-toggler-large {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 header .navbar .mode-toggler ion-icon,
@@ -209,6 +210,8 @@ header .navbar .hamburger-menu.active .nav-links {
 main {
   width: 100%;
   flex: 1;
+  display: grid;
+  place-items: center;
   padding: 20px 40px;
 }
 
