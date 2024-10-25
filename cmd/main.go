@@ -24,11 +24,13 @@ func main() {
 
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/static/" {
-			http.Error(w, "Access Forbidden", http.StatusForbidden)
+			controllers.ServeErrorPage(w, controllers.ErrorPage{
+				StatusCode: http.StatusForbidden,
+				Message:    "Access Forbidden",
+			})
 			log.Printf("Access forbidden to /static/\n")
 			return
 		}
-
 		http.StripPrefix("/static/", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
 	})
 
