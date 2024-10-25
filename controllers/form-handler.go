@@ -3,8 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
 	"regexp"
 )
 
@@ -47,44 +49,66 @@ func (cf *ContactForm) Validate() error {
 }
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	switch r.Method {
+	case http.MethodGet:
+		// Render contact form page
+		tmplPath := filepath.Join("templates", "contact.html")
+		tmpl, err := template.ParseFiles(tmplPath)
+		if err != nil {
+			serveErrorPage(w, ErrorPage{
+				StatusCode: http.StatusInternalServerError,
+				Message:    "An Unexpected Error Occurred. Try Again Later",
+			})
+			log.Printf("Failed parsing template %s: %v\n", tmplPath, err)
+			return
+		}
+
+		if err := tmpl.Execute(w, nil); err != nil {
+			serveErrorPage(w, ErrorPage{
+				StatusCode: http.StatusInternalServerError,
+				Message:    "An Unexpected Error Occurred. Try Again Later",
+			})
+			log.Printf("Failed executing contact template: %v\n", err)
+		}
+	case http.MethodPost:
+		// Process form submission
+		var form ContactForm
+
+		if err := json.NewDecoder(r.Body).Decode(&form); err != nil {
+			serveErrorPage(w, ErrorPage{
+				StatusCode: http.StatusBadRequest,
+				Message:    "Invalid Request",
+			})
+			log.Printf("Failed to decode request body: %v\n", err)
+			return
+		}
+
+		if err := form.Validate(); err != nil {
+			serveErrorPage(w, ErrorPage{
+				StatusCode: http.StatusBadRequest,
+				Message:    "Bad Request",
+			})
+			log.Printf("Form validation failed: %v\n", err)
+			return
+		}
+
+		if err := SendEmail(form); err != nil {
+			serveErrorPage(w, ErrorPage{
+				StatusCode: http.StatusInternalServerError,
+				Message:    "An Unexpected Error Occurred. Try Again Later",
+			})
+			log.Printf("Failed to send email: %v\n", err)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(Response{
+			Success: true,
+			Message: "Message sent successfully!",
+		})
+		log.Printf("Successfully sent email from %s\n", form.Email)
+	default:
 		MethodNotAllowedHandler(w, r)
 		log.Printf("Invalid method %s for /api/contact\n", r.Method)
 		return
 	}
-
-	var form ContactForm
-
-	if err := json.NewDecoder(r.Body).Decode(&form); err != nil {
-		serveErrorPage(w, ErrorPage{
-			StatusCode: http.StatusBadRequest,
-			Message:    "Invalid Request",
-		})
-		log.Printf("Failed to decode request body: %v\n", err)
-		return
-	}
-
-	if err := form.Validate(); err != nil {
-		serveErrorPage(w, ErrorPage{
-			StatusCode: http.StatusBadRequest,
-			Message:    "Bad Request",
-		})
-		log.Printf("Form validation failed: %v\n", err)
-		return
-	}
-
-	if err := SendEmail(form); err != nil {
-		serveErrorPage(w, ErrorPage{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "An Unexpected Error Occurred. Try Again Later",
-		})
-		log.Printf("Failed to send email: %v\n", err)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(Response{
-		Success: true,
-		Message: "Message sent successfully!",
-	})
-	log.Printf("Successfully sent email from %s\n", form.Email)
 }
