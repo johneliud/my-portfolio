@@ -9,21 +9,30 @@ import (
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.Error(w, "404 Not Found", http.StatusNotFound)
+		ServeErrorPage(w, ErrorPage{
+			StatusCode: http.StatusNotFound,
+			Message:    "Page Not Found",
+		})
 		return
 	}
 
 	tmplPath := filepath.Join("templates", "index.html")
 	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
-		http.Error(w, "Something Unexpected Just Happened. Try Again Later", http.StatusInternalServerError)
+		ServeErrorPage(w, ErrorPage{
+			StatusCode: http.StatusInternalServerError,
+			Message:    "An Unexpected Error Occurred. Try Again Later",
+		})
 		log.Printf("Error parsing template %s: %v\n", tmplPath, err)
 		return
 	}
 
 	err = tmpl.Execute(w, nil)
 	if err != nil {
-		http.Error(w, "Something Unexpected Just Happened. Try Again Later", http.StatusInternalServerError)
+		ServeErrorPage(w, ErrorPage{
+			StatusCode: http.StatusInternalServerError,
+			Message:    "An Unexpected Error Occurred. Try Again Later",
+		})
 		log.Printf("Error executing template: %v\n", err)
 	}
 }

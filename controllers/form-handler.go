@@ -55,7 +55,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		tmplPath := filepath.Join("templates", "contact.html")
 		tmpl, err := template.ParseFiles(tmplPath)
 		if err != nil {
-			serveErrorPage(w, ErrorPage{
+			ServeErrorPage(w, ErrorPage{
 				StatusCode: http.StatusInternalServerError,
 				Message:    "An Unexpected Error Occurred. Try Again Later",
 			})
@@ -64,7 +64,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if err := tmpl.Execute(w, nil); err != nil {
-			serveErrorPage(w, ErrorPage{
+			ServeErrorPage(w, ErrorPage{
 				StatusCode: http.StatusInternalServerError,
 				Message:    "An Unexpected Error Occurred. Try Again Later",
 			})
@@ -75,7 +75,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		var form ContactForm
 
 		if err := json.NewDecoder(r.Body).Decode(&form); err != nil {
-			serveErrorPage(w, ErrorPage{
+			ServeErrorPage(w, ErrorPage{
 				StatusCode: http.StatusBadRequest,
 				Message:    "Invalid Request",
 			})
@@ -84,7 +84,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if err := form.Validate(); err != nil {
-			serveErrorPage(w, ErrorPage{
+			ServeErrorPage(w, ErrorPage{
 				StatusCode: http.StatusBadRequest,
 				Message:    "Bad Request",
 			})
@@ -93,7 +93,7 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if err := SendEmail(form); err != nil {
-			serveErrorPage(w, ErrorPage{
+			ServeErrorPage(w, ErrorPage{
 				StatusCode: http.StatusInternalServerError,
 				Message:    "An Unexpected Error Occurred. Try Again Later",
 			})
