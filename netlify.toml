@@ -1,6 +1,6 @@
 [build]
   command = "go run ./cmd/main.go"
-  publish = "static"
+  publish = "templates"
 
 [[redirects]]
   from = "/*"
