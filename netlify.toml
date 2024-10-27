@@ -1,14 +1,11 @@
 [build]
-  command = "go run ./cmd/main.go"
-  publish = "templates"  # The folder with your HTML files
+  command = """
+    go run ./cmd/main.go && \
+    cp -r static/* templates/
+  """
+  publish = "templates"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Path to static assets
 [[headers]]
-  for = "/*"
+  for = "/static/*"
   [headers.values]
-    Cache-Control = "max-age=31536000"
+    Cache-Control = "public, max-age=31536000"
