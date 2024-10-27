@@ -1,8 +1,14 @@
 [build]
   command = "go run ./cmd/main.go"
-  publish = "templates"
+  publish = "templates"  # The folder with your HTML files
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Path to static assets
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "max-age=31536000"
