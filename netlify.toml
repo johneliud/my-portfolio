@@ -1,6 +1,6 @@
 [build]
   base = "/"
-  publish = "templates/"
+  publish = "templates"
   command = "go run ./cmd/main.go"
 
 [context.production.environment]
