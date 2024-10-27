@@ -1,0 +1,12 @@
+[build]
+  base = "/"
+  publish = "templates/"
+  command = "go run ./cmd/main.go"
+
+[context.production.environment]
+  GO_VERSION = "1.20"
+
+[[redirects]]
+ from = "/*"
+ to = "/index.html"
+ status = 200
