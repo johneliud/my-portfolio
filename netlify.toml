@@ -1,10 +1,17 @@
 [build]
   command = """
     go run ./cmd/main.go && \
-    cp -r static/* templates/
+    mkdir -p templates/static && \
+    cp -r static/* templates/static/
   """
   publish = "templates"
 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Add headers for static files
 [[headers]]
   for = "/static/*"
   [headers.values]
