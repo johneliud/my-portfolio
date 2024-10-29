@@ -17,22 +17,7 @@ type ErrorResponse struct {
 	Error   string `json:"error"`
 }
 
-func ErrorHandler(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		defer func() {
-			if err := recover(); err != nil {
-				ServeErrorPage(w, ErrorPage{
-					StatusCode: http.StatusInternalServerError,
-					Message:    "An Unexpected Error Occurred. Try Again Later",
-				})
-				log.Printf("Panic recovered: %v\n", err)
-			}
-		}()
-		next(w, r)
-	}
-}
-
-func ServeErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
+func serveErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
 	tmplPath := filepath.Join("templates", "error.html")
 	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
@@ -49,35 +34,35 @@ func ServeErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
-	ServeErrorPage(w, ErrorPage{
+	serveErrorPage(w, ErrorPage{
 		StatusCode: http.StatusNotFound,
-		Message:    "Page Not Found",
+		Message:    "Not Found",
 	})
 }
 
 func MethodNotAllowedHandler(w http.ResponseWriter, r *http.Request) {
-	ServeErrorPage(w, ErrorPage{
+	serveErrorPage(w, ErrorPage{
 		StatusCode: http.StatusMethodNotAllowed,
 		Message:    "Method Not Allowed",
 	})
 }
 
-func ForbiddenHandler(w http.ResponseWriter, r *http.Request) {
-	ServeErrorPage(w, ErrorPage{
+func AccessForbiddenHandler(w http.ResponseWriter, r *http.Request) {
+	serveErrorPage(w, ErrorPage{
 		StatusCode: http.StatusForbidden,
 		Message:    "Access Forbidden",
 	})
 }
 
 func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
-	ServeErrorPage(w, ErrorPage{
+	serveErrorPage(w, ErrorPage{
 		StatusCode: http.StatusInternalServerError,
 		Message:    "An Unexpected Error Occurred. Try Again Later",
 	})
 }
 
 func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
-	ServeErrorPage(w, ErrorPage{
+	serveErrorPage(w, ErrorPage{
 		StatusCode: http.StatusBadRequest,
 		Message:    "Bad Request",
 	})

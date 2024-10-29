@@ -55,19 +55,13 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		tmplPath := filepath.Join("templates", "contact.html")
 		tmpl, err := template.ParseFiles(tmplPath)
 		if err != nil {
-			ServeErrorPage(w, ErrorPage{
-				StatusCode: http.StatusInternalServerError,
-				Message:    "An Unexpected Error Occurred. Try Again Later",
-			})
+			InternalServerErrorHandler(w, r)
 			log.Printf("Failed parsing template %s: %v\n", tmplPath, err)
 			return
 		}
 
 		if err := tmpl.Execute(w, nil); err != nil {
-			ServeErrorPage(w, ErrorPage{
-				StatusCode: http.StatusInternalServerError,
-				Message:    "An Unexpected Error Occurred. Try Again Later",
-			})
+			InternalServerErrorHandler(w, r)
 			log.Printf("Failed executing contact template: %v\n", err)
 		}
 	case http.MethodPost:
@@ -75,28 +69,19 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		var form ContactForm
 
 		if err := json.NewDecoder(r.Body).Decode(&form); err != nil {
-			ServeErrorPage(w, ErrorPage{
-				StatusCode: http.StatusBadRequest,
-				Message:    "Invalid Request",
-			})
+			InternalServerErrorHandler(w, r)
 			log.Printf("Failed to decode request body: %v\n", err)
 			return
 		}
 
 		if err := form.Validate(); err != nil {
-			ServeErrorPage(w, ErrorPage{
-				StatusCode: http.StatusBadRequest,
-				Message:    "Bad Request",
-			})
+			InternalServerErrorHandler(w, r)
 			log.Printf("Form validation failed: %v\n", err)
 			return
 		}
 
 		if err := SendEmail(form); err != nil {
-			ServeErrorPage(w, ErrorPage{
-				StatusCode: http.StatusInternalServerError,
-				Message:    "An Unexpected Error Occurred. Try Again Later",
-			})
+			InternalServerErrorHandler(w, r)
 			log.Printf("Failed to send email: %v\n", err)
 			return
 		}

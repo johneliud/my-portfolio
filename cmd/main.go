@@ -24,10 +24,7 @@ func main() {
 
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/static/" {
-			controllers.ServeErrorPage(w, controllers.ErrorPage{
-				StatusCode: http.StatusForbidden,
-				Message:    "Access Forbidden",
-			})
+			controllers.AccessForbiddenHandler(w, r)
 			log.Printf("Access forbidden to /static/\n")
 			return
 		}
