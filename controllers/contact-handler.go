@@ -11,7 +11,7 @@ import (
 	"github.com/johneliud/my-portfolio/utils"
 )
 
-func FormHandler(w http.ResponseWriter, r *http.Request) {
+func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		// Render contact form page
