@@ -32,7 +32,10 @@ func main() {
 	})
 
 	http.HandleFunc("/", controllers.IndexHandler)
-	http.HandleFunc("/contact", controllers.FormHandler)
+	http.HandleFunc("/projects", controllers.ProjectsHandler)
+	http.HandleFunc("/skills", controllers.SkillsHandler)
+	http.HandleFunc("/blog", controllers.BlogHandler)
+	http.HandleFunc("/contact", controllers.ContactHandler)
 	http.HandleFunc("/resume", controllers.ResumeHandler)
 
 	port := utils.GetPort()
