@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -62,4 +63,13 @@ func (bs *BlogStore) LoadPosts() ([]models.BlogPost, error) {
 		return posts[i].Date.After(posts[j].Date)
 	})
 	return posts, nil
+}
+
+// Load a single blog post by ID
+func (bs *BlogStore) GetPost(id string) (*models.BlogPost, error) {
+	if id == "" {
+		return nil, errors.New("post ID cannot be empty")
+	}
+	filename := filepath.Join(bs.postsDir, id+".json")
+	return bs.loadPost(filename)
 }
