@@ -5,19 +5,11 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/johneliud/my-portfolio/models"
 )
 
-type ErrorPage struct {
-	StatusCode int
-	Message    string
-}
-
-type ErrorResponse struct {
-	Success bool   `json:"success"`
-	Error   string `json:"error"`
-}
-
-func serveErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
+func serveErrorPage(w http.ResponseWriter, errorPage models.ErrorPage) {
 	tmplPath := filepath.Join("templates", "error.html")
 	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
@@ -34,35 +26,35 @@ func serveErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
 }
 
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
-	serveErrorPage(w, ErrorPage{
+	serveErrorPage(w, models.ErrorPage{
 		StatusCode: http.StatusNotFound,
 		Message:    "Not Found",
 	})
 }
 
 func MethodNotAllowedHandler(w http.ResponseWriter, r *http.Request) {
-	serveErrorPage(w, ErrorPage{
+	serveErrorPage(w, models.ErrorPage{
 		StatusCode: http.StatusMethodNotAllowed,
 		Message:    "Method Not Allowed",
 	})
 }
 
 func AccessForbiddenHandler(w http.ResponseWriter, r *http.Request) {
-	serveErrorPage(w, ErrorPage{
+	serveErrorPage(w, models.ErrorPage{
 		StatusCode: http.StatusForbidden,
 		Message:    "Access Forbidden",
 	})
 }
 
 func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
-	serveErrorPage(w, ErrorPage{
+	serveErrorPage(w, models.ErrorPage{
 		StatusCode: http.StatusInternalServerError,
 		Message:    "An Unexpected Error Occurred. Try Again Later",
 	})
 }
 
 func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
-	serveErrorPage(w, ErrorPage{
+	serveErrorPage(w, models.ErrorPage{
 		StatusCode: http.StatusBadRequest,
 		Message:    "Bad Request",
 	})
