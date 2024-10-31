@@ -14,7 +14,6 @@ import (
 func ContactHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		// Render contact form page
 		tmplPath := filepath.Join("templates", "contact.html")
 		tmpl, err := template.ParseFiles(tmplPath)
 		if err != nil {
@@ -37,7 +36,7 @@ func ContactHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if err := form.Validate(); err != nil {
+		if err := utils.ValidateFormData(&form); err != nil {
 			InternalServerErrorHandler(w, r)
 			log.Printf("Form validation failed: %v\n", err)
 			return
