@@ -8,6 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
+	"time"
 
 	"github.com/johneliud/my-portfolio/models"
 )
@@ -106,4 +108,52 @@ func (bs *BlogStore) loadPost(filename string) (*models.BlogPost, error) {
 		post.ReadingTime = CalculateReadingTime(post.Content)
 	}
 	return &post, nil
+}
+
+// Writes a blog post to a JSON file
+func (bs *BlogStore) SavePost(post *models.BlogPost) error {
+	// Validate post
+	if post.Title == "" {
+		return errors.New("post title is required")
+	}
+
+	if post.Content == "" {
+		return errors.New("post content is required")
+	}
+
+	if post.Date.IsZero() {
+		post.Date = time.Now()
+	}
+
+	if post.ID == "" {
+		// Generate ID from title and date
+		sanitized := strings.ToLower(strings.ReplaceAll(post.Title, " ", "-"))
+		post.ID = fmt.Sprintf("%s-%d", sanitized, post.Date.Unix())
+	}
+
+	// Calculate reading time
+	post.ReadingTime = CalculateReadingTime(post.Content)
+
+	// Generate summary if not provided
+	if post.Summary == "" {
+		words := strings.Fields(post.Content)
+		if len(words) > 30 {
+			post.Summary = strings.Join(words[:30], " ") + "..."
+		} else {
+			post.Summary = strings.Join(words, " ")
+		}
+	}
+
+	// Marshal to JSON with pretty printing
+	data, err := json.MarshalIndent(post, "", "    ")
+	if err != nil {
+		return fmt.Errorf("failed to marshal post: %w", err)
+	}
+
+	// Write to file
+	filename := filepath.Join(bs.postsDir, post.ID+".json")
+	if err := os.WriteFile(filename, data, 0644); err != nil {
+		return fmt.Errorf("failed to write post file: %w", err)
+	}
+	return nil
 }
