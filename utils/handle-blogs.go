@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/fs"
@@ -72,4 +73,37 @@ func (bs *BlogStore) GetPost(id string) (*models.BlogPost, error) {
 	}
 	filename := filepath.Join(bs.postsDir, id+".json")
 	return bs.loadPost(filename)
+}
+
+// Reads and parses a JSON file
+func (bs *BlogStore) loadPost(filename string) (*models.BlogPost, error) {
+	file, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read post file: %w", err)
+	}
+
+	var post models.BlogPost
+
+	if err := json.Unmarshal(file, &post); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal post: %w", err)
+	}
+
+	// Validate required fields
+	if post.Title == "" {
+		return nil, errors.New("post title is required")
+	}
+
+	if post.Content == "" {
+		return nil, errors.New("post content is required")
+	}
+
+	if post.Date.IsZero() {
+		return nil, errors.New("post date is required")
+	}
+
+	// Ensure reading time is calculated
+	if post.ReadingTime == 0 {
+		post.ReadingTime = CalculateReadingTime(post.Content)
+	}
+	return &post, nil
 }
