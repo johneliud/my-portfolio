@@ -34,7 +34,3 @@ type BlogPost struct {
 	ReadingTime int       `json:"readingTime"`
 	Tags        []string  `json:"tags"`
 }
-
-type BlogStore struct {
-	postsDir string
-}
