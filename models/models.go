@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type ContactForm struct {
 	Name    string
 	Email   string
@@ -21,4 +23,18 @@ type ErrorPage struct {
 type ErrorResponse struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
+}
+
+type BlogPost struct {
+	ID          string    `json:"id"`
+	Title       string    `json:"title"`
+	Content     string    `json:"content"`
+	Summary     string    `json:"summary"`
+	Date        time.Time `json:"date"`
+	ReadingTime int       `json:"readingTime"`
+	Tags        []string  `json:"tags"`
+}
+
+type BlogStore struct {
+	postsDir string
 }
