@@ -28,16 +28,18 @@ type ErrorResponse struct {
 type BlogPost struct {
 	ID          string    `json:"id"`
 	Title       string    `json:"title"`
-	Content     string    `json:"content"`
 	Summary     string    `json:"summary"`
+	Content     string    `json:"content"`
 	Date        time.Time `json:"date"`
 	ReadingTime int       `json:"readingTime"`
 	Tags        []string  `json:"tags"`
+	ExternalURL string    `json:"externalUrl,omitempty"`
 }
 
 type CreatePostRequest struct {
-	Title   string   `json:"title"`
-	Content string   `json:"content"`
-	Summary string   `json:"summary,omitempty"`
-	Tags    []string `json:"tags,omitempty"`
+	Title       string   `json:"title"`
+	Summary     string   `json:"summary,omitempty"`
+	Content     string   `json:"content"`
+	Tags        []string `json:"tags,omitempty"`
+	ExternalURL string   `json:"externalUrl,omitempty"`
 }
