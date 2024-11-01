@@ -24,7 +24,7 @@ func main() {
 	}
 
 	// Initialize BlogStore
-	blogStore, err := utils.NewBlogStore(filepath.Join(".", "blog-posts"))
+	blogStore, err := utils.NewBlogStore(filepath.Join(".", "data"))
 	if err != nil {
 		log.Printf("Error initializing blog store: %v\n", err)
 		return
@@ -42,8 +42,9 @@ func main() {
 	http.HandleFunc("/", controllers.IndexHandler)
 	http.HandleFunc("/projects", controllers.ProjectsHandler)
 	http.HandleFunc("/skills", controllers.SkillsHandler)
-	http.HandleFunc("/blog", controllers.BlogHandler)
+	http.HandleFunc("/blog", controllers.BlogHandler(blogStore))
 	http.HandleFunc("/blog/create", controllers.CreateBlogPostHandler(blogStore))
+	http.HandleFunc("/blog/post/", controllers.SingleBlogPostHandler(blogStore))
 	http.HandleFunc("/contact", controllers.ContactHandler)
 	http.HandleFunc("/resume", controllers.ResumeHandler)
 
