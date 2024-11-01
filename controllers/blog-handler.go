@@ -7,29 +7,46 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"strings"
 
 	"github.com/johneliud/my-portfolio/models"
 	"github.com/johneliud/my-portfolio/utils"
 )
 
-func BlogHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/blog" {
-		NotFoundHandler(w, r)
-		return
-	}
+func BlogHandler(store *utils.BlogStore) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/blog" {
+			NotFoundHandler(w, r)
+			return
+		}
 
-	tmplPath := filepath.Join("templates", "blog.html")
-	tmpl, err := template.ParseFiles(tmplPath)
-	if err != nil {
-		InternalServerErrorHandler(w, r)
-		log.Printf("Error parsing template %s: %v\n", tmplPath, err)
-		return
-	}
+		// Load all blog posts
+		posts, err := store.LoadPosts()
+		if err != nil {
+			log.Printf("Error loading posts: %v\n", err)
+			InternalServerErrorHandler(w, r)
+			return
+		}
 
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		InternalServerErrorHandler(w, r)
-		log.Printf("Error executing template: %v\n", err)
+		// Create template data
+		data := struct {
+			Posts []models.BlogPost
+		}{
+			Posts: posts,
+		}
+
+		tmplPath := filepath.Join("templates", "blog.html")
+		tmpl, err := template.ParseFiles(tmplPath)
+		if err != nil {
+			InternalServerErrorHandler(w, r)
+			log.Printf("Error parsing template %s: %v\n", tmplPath, err)
+			return
+		}
+
+		if err = tmpl.Execute(w, data); err != nil {
+			InternalServerErrorHandler(w, r)
+			log.Printf("Error executing template: %v\n", err)
+		}
 	}
 }
 
@@ -82,5 +99,41 @@ func CreateBlogPostHandler(store *utils.BlogStore) http.HandlerFunc {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(post)
+	}
+}
+
+func SingleBlogPostHandler(store *utils.BlogStore) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Extract post ID from URL
+		parts := strings.Split(r.URL.Path, "/")
+		if len(parts) != 4 || parts[1] != "blog" || parts[2] != "post" {
+			NotFoundHandler(w, r)
+			return
+		}
+
+		postID := parts[3]
+
+		// Load the specific post
+		post, err := store.GetPost(postID)
+		if err != nil {
+			NotFoundHandler(w, r)
+			log.Printf("Error loading post %s: %v\n", postID, err)
+			return
+		}
+
+		// Parse and execute template
+		tmplPath := filepath.Join("templates", "blog-post.html")
+		tmpl, err := template.ParseFiles(tmplPath)
+		if err != nil {
+			InternalServerErrorHandler(w, r)
+			log.Printf("Error parsing template %s: %v\n", tmplPath, err)
+			return
+		}
+
+		if err := tmpl.Execute(w, post); err != nil {
+			InternalServerErrorHandler(w, r)
+			log.Printf("Error executing template: %v\n", err)
+			return
+		}
 	}
 }
