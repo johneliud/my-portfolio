@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/johneliud/my-portfolio/controllers"
 	"github.com/johneliud/my-portfolio/utils"
@@ -22,6 +23,13 @@ func main() {
 		return
 	}
 
+	// Initialize BlogStore
+	blogStore, err := utils.NewBlogStore(filepath.Join(".", "blog-posts"))
+	if err != nil {
+		log.Printf("Error initializing blog store: %v\n", err)
+		return
+	}
+
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/static/" {
 			controllers.AccessForbiddenHandler(w, r)
@@ -35,6 +43,7 @@ func main() {
 	http.HandleFunc("/projects", controllers.ProjectsHandler)
 	http.HandleFunc("/skills", controllers.SkillsHandler)
 	http.HandleFunc("/blog", controllers.BlogHandler)
+	http.HandleFunc("/blog/create", controllers.CreateBlogPostHandler(blogStore))
 	http.HandleFunc("/contact", controllers.ContactHandler)
 	http.HandleFunc("/resume", controllers.ResumeHandler)
 
