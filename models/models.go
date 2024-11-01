@@ -34,3 +34,10 @@ type BlogPost struct {
 	ReadingTime int       `json:"readingTime"`
 	Tags        []string  `json:"tags"`
 }
+
+type CreatePostRequest struct {
+	Title   string   `json:"title"`
+	Content string   `json:"content"`
+	Summary string   `json:"summary,omitempty"`
+	Tags    []string `json:"tags,omitempty"`
+}
