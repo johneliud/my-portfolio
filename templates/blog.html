@@ -69,27 +69,26 @@
       />
 
       <div class="blog-grid">
+        {{ range .Posts }}
         <article class="blog-card">
           <div class="blog-meta">
-            <span class="date">Oct 30, 2024</span>
-            <span class="read-time">5 min read</span>
+            <span class="date">{{ .Date.Format "January 2, 2006" }}</span>
+            <span class="read-time">{{ .ReadingTime }} min read</span>
           </div>
-          <h2>Getting Started with Go Backend Development</h2>
-          <p>
-            Learn how to build robust backend systems using Go, covering
-            essential concepts and best practices...
-          </p>
+          <h2>{{ .Title }}</h2>
+          <p>{{ .Summary }}</p>
           <div class="blog-tags">
             <div class="left">
-              <span class="tag">Go</span>
-              <span class="tag">Backend</span>
+              {{ range .Tags }}
+              <span class="tag">{{ . }}</span>
+              {{ end }}
             </div>
-
             <div class="right">
-              <a href="" class="read-more">Read More</a>
+              <a href="/blog/{{ $.ID }}" class="read-more">Read More</a>
             </div>
           </div>
         </article>
+        {{ end }}
       </div>
     </main>
     <!-- Ion-Icons -->
