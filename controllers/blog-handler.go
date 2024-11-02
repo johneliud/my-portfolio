@@ -74,9 +74,9 @@ func CreateBlogPostHandler(store *utils.BlogStore) http.HandlerFunc {
 		}
 
 		// Validate required fields
-		if createRequest.Title == "" || createRequest.Content == "" {
+		if createRequest.Title == "" || createRequest.Summary == "" {
 			BadRequestHandler(w, r)
-			log.Println("Title and Content fields are required.")
+			log.Println("Both Title and Summary fields are required.")
 			return
 		}
 
@@ -84,7 +84,7 @@ func CreateBlogPostHandler(store *utils.BlogStore) http.HandlerFunc {
 		post := &models.BlogPost{
 			Title:       createRequest.Title,
 			Summary:     createRequest.Summary,
-			Content:     createRequest.Content,
+			// Content:     createRequest.Content,
 			Tags:        createRequest.Tags,
 			ExternalURL: createRequest.ExternalURL,
 		}
