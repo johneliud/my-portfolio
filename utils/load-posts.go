@@ -68,7 +68,7 @@ func (bs *BlogStore) loadPost(filename string) (*models.BlogPost, error) {
 
 	// Ensure reading time is calculated
 	if post.ReadingTime == 0 {
-		post.ReadingTime = CalculateReadingTime(post.Content)
+		post.ReadingTime = CalculateReadingTime()
 	}
 	return &post, nil
 }

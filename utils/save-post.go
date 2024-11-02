@@ -17,8 +17,8 @@ func (bs *BlogStore) SavePost(post *models.BlogPost) error {
 		return errors.New("post title is required")
 	}
 
-	if post.Content == "" {
-		return errors.New("post content is required")
+	if post.Summary == "" {
+		return errors.New("post summary is required")
 	}
 
 	if post.Date.IsZero() {
@@ -32,7 +32,7 @@ func (bs *BlogStore) SavePost(post *models.BlogPost) error {
 	}
 
 	// Calculate reading time
-	post.ReadingTime = CalculateReadingTime(post.Content)
+	post.ReadingTime = CalculateReadingTime()
 
 	// Generate summary if not provided
 	if post.Summary == "" {
