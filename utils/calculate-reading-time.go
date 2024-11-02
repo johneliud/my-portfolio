@@ -33,7 +33,7 @@ func calculateWordCount() int {
 	return wordCount
 }
 
-func CalculateReadingTime(content string) int {
+func CalculateReadingTime() int {
 	// Assuming the average speed is 200 words per minute
 	wordCount := calculateWordCount()
 	return (wordCount + 199) / 200
