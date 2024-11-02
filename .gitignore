@@ -7,3 +7,6 @@
 .vscode/
 
 .idea/
+
+# Blog posts
+data/
