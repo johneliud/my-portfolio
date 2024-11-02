@@ -25,17 +25,8 @@ func NewBlogStore(postsDirectory string) (*BlogStore, error) {
 	return &BlogStore{postsDir: postsDir}, nil
 }
 
-// Returns the full path for a post based on its date
-func (bs *BlogStore) getPostPath(date time.Time, id string) string {
-	year := fmt.Sprintf("%d", date.Year())
-	month := fmt.Sprintf("%02d", date.Month())
-
-	// Create year/month directory structure
-	dirPath := filepath.Join(bs.postsDir, year, month)
-	if err := os.MkdirAll(dirPath, 0755); err != nil {
-		return ""
-	}
-	return filepath.Join(dirPath, id+".json")
+func (bs *BlogStore) getPostPath(_ time.Time, id string) string {
+	return filepath.Join(bs.postsDir, id+".json")
 }
 
 // Writes a blog post to a the appropriate directory
@@ -115,6 +106,7 @@ func (bs *BlogStore) LoadPosts() ([]models.BlogPost, error) {
 			Date:        post.Date,
 			ReadingTime: post.ReadingTime,
 			Tags:        post.Tags,
+			ExternalURL: post.ExternalURL,
 		}
 		posts = append(posts, previewPost)
 		return nil
@@ -131,35 +123,14 @@ func (bs *BlogStore) LoadPosts() ([]models.BlogPost, error) {
 	return posts, nil
 }
 
-// Load a single blog post by ID
 func (bs *BlogStore) GetPost(id string) (*models.BlogPost, error) {
 	if id == "" {
 		return nil, errors.New("post ID cannot be empty")
 	}
 
-	// Search for the post in the directory structure
-	var foundPath string
-	err := filepath.Walk(bs.postsDir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if filepath.Ext(path) == ".json" && strings.HasPrefix(filepath.Base(path), id) {
-			foundPath = path
-			return filepath.SkipAll
-		}
-		return nil
-	})
-
-	if err != nil {
-		return nil, fmt.Errorf("error searching for post: %w", err)
-	}
-
-	if foundPath == "" {
-		return nil, errors.New("post not found")
-	}
-
-	return bs.loadPost(foundPath)
+	// Direct file path
+	path := filepath.Join(bs.postsDir, id+".json")
+	return bs.loadPost(path)
 }
 
 // Reads and parses a JSON file
