@@ -83,18 +83,15 @@
               <span class="tag">{{ . }}</span>
               {{ end }}
             </div>
+            <!-- Debug: {{- .ExternalURL -}} -->
             <div class="right">
-              {{ if .ExternalURL }}
               <a
-                href="{{ .ExternalURL }}"
+                href="{{- .ExternalURL -}}"
                 class="read-more"
                 target="_blank"
                 rel="noopener noreferrer"
                 >Read More</a
               >
-              {{ else }}
-              <a href="/blog/post/{{ .ID }}" class="read-more">Read More</a>
-              {{ end }}
             </div>
           </div>
         </article>
