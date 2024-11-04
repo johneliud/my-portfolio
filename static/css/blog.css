@@ -227,6 +227,7 @@ body.dark-theme main h1 {
   border-radius: 10px;
   margin-bottom: 2rem;
   font-size: 16px;
+  outline: none;
 }
 
 body.dark-theme .blog-search {
