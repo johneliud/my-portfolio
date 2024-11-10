@@ -1,20 +1,74 @@
-const contactForm = document.getElementById('contactForm');
-const contactFormMessage = document.querySelector('.form-message');
+class Notification {
+  constructor() {
+    this.timeout = null;
+    this.element = null;
+  }
 
-const showMessage = (type, message) => {
-  contactFormMessage.textContent = message;
-  contactFormMessage.className = `form-message ${type}`;
+  createNotificationElement(type, message) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type.toLowerCase()}`;
 
-  setTimeout(() => {
-    contactFormMessage.className = 'form-message';
-    contactFormMessage.textContent = '';
-  }, 5000);
-};
+    notification.innerHTML = `
+      ${
+        type.toLowerCase() === 'success'
+          ? `<svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+           </svg>`
+          : `<svg class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+           </svg>`
+      }
+      <span class="notification-message">${message}</span>
+      <button class="notification-close" aria-label="Close notification">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    `;
 
-contactForm.addEventListener('submit', async (e) => {
+    return notification;
+  }
+
+  show(type, message, duration = 5000) {
+    if (this.element) {
+      this.element.remove();
+      clearTimeout(this.timeout);
+    }
+
+    this.element = this.createNotificationElement(type, message);
+    document.body.appendChild(this.element);
+
+    const closeButton = this.element.querySelector('.notification-close');
+    closeButton.addEventListener('click', () => this.hide());
+
+    requestAnimationFrame(() => {
+      this.element.classList.add('show');
+    });
+
+    this.timeout = setTimeout(() => {
+      this.hide();
+    }, duration);
+  }
+
+  hide() {
+    if (this.element) {
+      this.element.classList.remove('show');
+      setTimeout(() => {
+        this.element.remove();
+        this.element = null;
+      }, 300);
+    }
+  }
+}
+
+// Initialize notification system
+const notification = new Notification();
+
+// Form submission handler
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(contactForm);
+  const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
 
   try {
@@ -27,12 +81,14 @@ contactForm.addEventListener('submit', async (e) => {
     });
 
     const result = await response.json();
+
     if (!response.ok) {
       throw new Error(result.error || 'Failed to send message');
     }
-    showMessage('Success', result.message);
-    contactForm.reset();
+
+    notification.show('success', result.message);
+    e.target.reset();
   } catch (error) {
-    showMessage('Error', error.message);
+    notification.show('error', error.message);
   }
 });
