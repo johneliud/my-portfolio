@@ -9,7 +9,7 @@ import (
 )
 
 func calculateWordCount() int {
-	articleFile, err := os.Open("articles/file-integrity.txt")
+	articleFile, err := os.Open("data/articles/file-integrity.txt")
 	if err != nil {
 		log.Println("Error opening file:", err)
 		return 0
