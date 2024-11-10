@@ -1,0 +1,13 @@
+{
+    "id": "file-security-and-integrity-in-go-using-checksum-1730551745",
+    "title": "File Security and Integrity in Go Using Checksum",
+    "summary": "Learn how to implement file integrity checks in Go using checksums. This post covers how to calculate and verify file checksums to detect modifications or corruption.",
+    "content": "",
+    "date": "2024-11-02T15:49:05.442429553+03:00",
+    "readingTime": 6,
+    "tags": [
+        "go",
+        "checksum"
+    ],
+    "externalUrl": "https://dev.to/johneliud/file-security-and-integrity-in-go-using-checksum-4km4"
+}
