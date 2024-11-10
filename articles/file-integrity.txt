@@ -1,0 +1,137 @@
+File Security and Integrity in Go using Checksum
+In the world of software development and data management, ensuring file integrity is crucial. Whether you're verifying downloaded files, detecting unauthorized modifications, or implementing a simple backup system, understanding and implementing file integrity checks is a valuable skill.
+
+In this article, we'll explore how to use Go to implement file integrity checks using checksums and hashing algorithms.
+
+Understanding Checksums and Hashing
+A checksum is a small-sized data derived from a block of digital data, typically for the purpose of detecting errors that may have been introduced during its transmission or storage.
+
+A hash is a function that converts input data of arbitrary size into a fixed-size string of bytes or a hexadecimal string. For our case, we'll be using cryptographic hash functions to generate our checksums.
+
+Think of hashing algorithms as a security officer to your house. It ensures that you find your house the same way you left it.
+
+Hashing in Go
+Go provides a robust crypto package that includes various hashing algorithms. Some common ones include:
+
+MD5 (Not recommended for security-critical applications)
+SHA-1
+SHA-256
+SHA-512
+Let's start with a simple function example of how to calculate a file's SHA-256 hash in Go:
+
+func calculateFileHash(filePath string) (string, error) {
+    fileData, err := os.ReadFile(filePath)
+    if err != nil {
+        return "", err
+    }
+
+    hasher := sha256.New()
+    hasher.Write(fileData)
+    hashInBytes := hasher.Sum(nil)
+    fileHash := hex.EncodeToString(hashInBytes)
+    return fileHash, nil
+}
+Implementing a file integrity checker
+Now that we know how to calculate a file's hash, let's implement a simple file integrity checker function. This tool will calculate a file's hash and compare it to a known good hash.
+
+func checkFileIntegrity(filePath, correctHash string) {
+    foundHash, err := calculateFileHash(filePath)
+    if err != nil {
+        fmt.Printf("Error calculating file hash: %v\n", err)
+        return
+    }
+
+    if foundHash != correctHash {
+        fmt.Println("The found hash differs from the correct hash. The file might be corrupted.")
+    } else {
+        fmt.Println("The found hash matches with the correct hash. The file is not corrupted.")
+    }
+}
+This program checks if the calculated hash of a file matches a known good hash. If they match, the file's integrity is confirmed.
+
+Practical Example
+In the example below, we will write the program to check if a file named 'file.txt' has been modified/tempered with. It will then display an appropriate message back to the user.
+
+Image description
+
+We will use the screenshot above as our reference point. The screenshot shows the contents of 'file.txt' in its correct form.
+
+Below is a screenshot of a modified version of 'file.txt'. Have a closer look at it and you will notice that both letter 'l' present in it have been modified.
+
+Image description
+
+We can therefore write a simple program that uses a secure hashing algorithm to determine if 'file.txt' has been tempered with.
+
+package main
+
+import (
+    "crypto/sha256"
+    "encoding/hex"
+    "fmt"
+    "os"
+)
+
+// calculateFileHash calculates the SHA-256 hash of the file contents at the given file path. It returns the hash as a string, or an error if the file could not be read.
+func calculateFileHash(filePath string) (string, error) {
+    fileData, err := os.ReadFile(filePath)
+    if err != nil {
+        return "", err
+    }
+
+    hasher := sha256.New()
+    hasher.Write(fileData)
+    hashInBytes := hasher.Sum(nil)
+    fileHash := hex.EncodeToString(hashInBytes)
+    return fileHash, nil
+}
+
+// checkFileIntegrity compares the calculated hash of the file at the given path with the expected correct hash. It prints a message indicating whether the file is corrupted or not.
+func checkFileIntegrity(filePath, correctHash string) {
+    foundHash, err := calculateFileHash(filePath)
+    if err != nil {
+        fmt.Printf("Error calculating file hash: %v\n", err)
+        return
+    }
+
+    if foundHash != correctHash {
+        fmt.Println("The found hash differs from the correct hash. The file might be corrupted.")
+    } else {
+        fmt.Println("The found hash matches with the correct hash. The file is not corrupted.")
+    }
+}
+
+func main() {
+    const (
+        filePath     = "file.txt"
+        correctHash = "8347dc534dcfc8c82674cc8d16aa788668fe54491c3ec31f06388c517c102f7d"
+    )
+
+    checkFileIntegrity(filePath, correctHash)
+}
+Program Breakdown
+In main function is always the entry point of every Golang program. I will breakdown what the main function in this case works.
+
+I have declared two variables with the keyword 'const'. This means I don't have any intention of changing the values stored in each variable.
+
+Variable filePath is initialized to contain the path/location of the file that I want to access.
+
+Variable correctHash has been initialized to contain the hexadecimal hash value of 'file.txt'. This value is what we will use to determine if 'file.txt' has been modified. I used an online checksum calculator to come up with the string present in the variable.
+
+I then call function checkFileIntegrity() while passing the filePath and correctHash as its arguments.
+
+Every time the checkFileIntegrity() function is called with the appropriate arguments to it, it uses a conditional statement to determine if 'file.txt' has been modified. It does this by comparing the result stored in variable foundHash against the value stored in variable correctHash. If the values do not match, a message "The found hash differs from the correct hash. The file might be corrupted." is displayed. This means that 'file.txt' was tempered with. Otherwise a message "The found hash matches with the correct hash. The file is not corrupted." is displayed meaning 'file.txt' is in its correct state.
+
+Best Practices and Security Considerations
+When implementing file integrity checks, keep these best practices in mind:
+
+Choose the right algorithm: SHA-256 is generally a good choice for most applications. Avoid MD5 and SHA-1 for security-critical applications, as they have known vulnerabilities.
+Secure storage of known good hashes: Store your known good hashes securely. If an attacker can modify both the file and the stored hash, your integrity check becomes useless.
+Regular checks: Implement regular integrity checks for critical files, not just at download or installation time.
+Combine with other security measures: File integrity checks are just one part of a comprehensive security strategy. Combine them with proper access controls, encryption, and other security measures.
+Be aware of false positives: Remember that any change to a file will change its hash. This includes benign changes like metadata updates.
+Conclusion
+File integrity checking is a crucial aspect of data security and management. Go's standard library provides powerful tools for implementing robust and efficient file integrity checks. By understanding and implementing these concepts, you can significantly enhance the security and reliability of your Go applications.
+
+Remember, while checksums and hashing are powerful tools, they're not a silver bullet for file security. Always consider them as part of a broader security strategy.
+
+Happy coding.
