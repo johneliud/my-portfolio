@@ -3,10 +3,6 @@
 .env.local
 .env.*.local
 
-# VSCode extension settings json
 .vscode/
 
 .idea/
-
-# Article file
-articles/
