@@ -2,7 +2,8 @@
   command = """
     go run ./cmd/main.go && \
     mkdir -p templates/static && \
-    cp -r static/* templates/static/
+    cp -r static/* templates/static/ && \
+    cp -r data/* templates/data/
   """
   publish = "templates"
 
@@ -15,3 +16,9 @@
   for = "/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Content-Type = "application/json"
+    Cache-Control = "public, max-age=3600"
