@@ -212,6 +212,156 @@ main {
 main section {
   width: 100%;
   margin: 10px auto;
+  text-align: center;
+}
+
+/* Container */
+.resume-container {
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Section */
+.left-section {
+  background-color: var(--primary-color);
+  padding: 40px 20px;
+  width: 35%;
+  text-align: center;
+}
+
+.left-section h1 {
+  font-size: 24px;
+  line-height: 1.4;
+  margin: 20px 0;
+  letter-spacing: 2px;
+  color: var(--span-color);
+}
+
+.left-section h3 {
+  font-size: 18px;
+  color: var(--primary-color-2);
+  margin-bottom: 20px;
+}
+
+.profile-pic img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.contact-info,
+.references,
+.languages,
+.about {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.contact-info h2,
+.references h2,
+.about h2,
+.languages h2 {
+  font-size: 16px;
+  color: var(--primary-color-2);
+  border-bottom: 1px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.contact-info p,
+.references p,
+.about p,
+.languages p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--primary-color-2);
+}
+
+.language-bar {
+  display: block;
+  background-color: var(--primary-color-2);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.language-bar span {
+  display: block;
+  height: 100%;
+  background-color: var(--span-color);
+}
+
+/* Right Section */
+.right-section {
+  background-color: var(--primary-color-2);
+  padding: 40px;
+  width: 65%;
+  color: var(--primary-color);
+  text-align: left;
+}
+
+body.dark-theme .right-section h2,
+body.dark-theme .right-section p {
+  color: var(--primary-color);
+}
+
+.right-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 5px;
+}
+
+.education p,
+.experience p,
+.skills p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.about {
+  margin-bottom: 30px;
+}
+
+.edu-item,
+.exp-item {
+  margin-bottom: 20px;
+}
+
+.edu-item h3,
+.exp-item h3 {
+  font-size: 16px;
+  color: #004aad;
+  margin-bottom: 5px;
+}
+
+.edu-item p,
+.exp-item p {
+  font-size: 14px;
+  color: var(--primary-color);
+}
+
+.skills {
+  margin-top: 30px;
+}
+
+.skill-bar {
+  display: block;
+  background-color: var(--accent-color);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.skill-bar span {
+  display: block;
+  height: 100%;
+  background-color: #004aad;
 }
 
 /* Media Queries */
