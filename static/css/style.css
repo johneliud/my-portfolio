@@ -210,19 +210,19 @@ header .navbar .hamburger-menu.active .nav-links {
 main {
   width: 100%;
   flex: 1;
-  display: grid;
-  place-items: center;
   padding: 20px 40px;
 }
 
 main section {
   width: 100%;
   margin: 10px auto;
+  display: grid;
+  place-items: center;
 }
 
 /* Hero */
 main .hero .container {
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -285,6 +285,10 @@ main .hero .container .profile-details .contact-container a {
 main .hero .container .profile-details .contact-container a:hover {
   background-color: var(--span-color);
   color: var(--primary-color-2);
+}
+
+main .hero .container .profile-image img {
+  width: 100%;
 }
 
 /* Contact */
