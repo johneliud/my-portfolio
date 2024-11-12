@@ -1,10 +1,10 @@
 [build]
-  command = """
-    go run ./cmd/main.go && \
-    mkdir -p templates/static && \
-    cp -r static/* templates/static/ && \
-    cp -r data/* templates/data/
-  """
+command = """
+  go run ./cmd/main.go && \
+  mkdir -p templates/static templates/data && \
+  cp -r static/* templates/static/ && \
+  cp -r data/* templates/data/
+"""
   publish = "templates"
 
 [[redirects]]
