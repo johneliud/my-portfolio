@@ -84,8 +84,15 @@
               {{ end }}
             </div>
             <div class="right">
-              <a
+              <!-- <a
                 href="{{- .ExternalURL -}}"
+                class="read-more"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Read More</a
+              > -->
+              <a
+                href="{{ .ExternalURL | urlquery }}"
                 class="read-more"
                 target="_blank"
                 rel="noopener noreferrer"
