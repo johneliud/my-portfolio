@@ -82,8 +82,8 @@ func CreateBlogPostHandler(store *utils.BlogStore) http.HandlerFunc {
 
 		// Create the blog post
 		post := &models.BlogPost{
-			Title:       createRequest.Title,
-			Summary:     createRequest.Summary,
+			Title:   createRequest.Title,
+			Summary: createRequest.Summary,
 			// Content:     createRequest.Content,
 			Tags:        createRequest.Tags,
 			ExternalURL: createRequest.ExternalURL,

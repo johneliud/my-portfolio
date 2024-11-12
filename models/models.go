@@ -37,8 +37,8 @@ type BlogPost struct {
 }
 
 type CreatePostRequest struct {
-	Title       string   `json:"title"`
-	Summary     string   `json:"summary,omitempty"`
+	Title   string `json:"title"`
+	Summary string `json:"summary,omitempty"`
 	// Content     string   `json:"content"`
 	Tags        []string `json:"tags,omitempty"`
 	ExternalURL string   `json:"externalUrl,omitempty"`
