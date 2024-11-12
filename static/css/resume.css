@@ -215,7 +215,10 @@ main section {
   text-align: center;
 }
 
-/* Container */
+section h2:first-child {
+  font-size: 2rem;
+}
+
 .resume-container {
   display: flex;
   width: 80%;
@@ -223,7 +226,6 @@ main section {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Left Section */
 .left-section {
   background-color: var(--primary-color);
   padding: 40px 20px;
@@ -295,7 +297,6 @@ main section {
   background-color: var(--span-color);
 }
 
-/* Right Section */
 .right-section {
   background-color: var(--primary-color-2);
   padding: 40px;
