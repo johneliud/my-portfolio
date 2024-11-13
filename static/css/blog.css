@@ -152,6 +152,15 @@ body.dark-theme .mode-toggler-large ion-icon {
   display: none;
 }
 
+header .navbar .navs .change-mode {
+  background-color: var(--primary-color-2);
+  transition: background-color var(--transition);
+}
+
+body.dark-theme header .navbar .navs .change-mode {
+  background-color: var(--primary-color);
+}
+
 .navbar .hamburger-menu {
   width: 10%;
   cursor: pointer;

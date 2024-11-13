@@ -152,6 +152,15 @@ body.dark-theme .mode-toggler-large ion-icon {
   display: none;
 }
 
+header .navbar .navs .change-mode {
+  background-color: var(--primary-color-2);
+  transition: background-color var(--transition);
+}
+
+body.dark-theme header .navbar .navs .change-mode {
+  background-color: var(--primary-color);
+}
+
 .navbar .hamburger-menu {
   width: 10%;
   cursor: pointer;
@@ -209,163 +218,179 @@ main {
   padding: 20px 40px;
 }
 
-main section {
-  width: 100%;
-  margin: 10px auto;
-  text-align: center;
-}
-
-section h2:first-child {
-  font-size: 2rem;
+.resume-section {
+  padding: 40px 20px;
 }
 
 .resume-container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
   display: flex;
-  width: 80%;
-  margin: 20px auto;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 30px;
+  background: var(--primary-color-2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .left-section {
-  background-color: var(--primary-color);
-  padding: 40px 20px;
   width: 35%;
-  text-align: center;
+  background: var(--primary-color);
+  padding: 40px 30px;
+  position: relative;
 }
 
-.left-section h1 {
-  font-size: 24px;
-  line-height: 1.4;
-  margin: 20px 0;
-  letter-spacing: 2px;
-  color: var(--span-color);
-}
-
-.left-section h3 {
-  font-size: 18px;
-  color: var(--primary-color-2);
-  margin-bottom: 20px;
+.profile-pic {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 30px;
 }
 
 .profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  margin-bottom: 20px;
+  border: 4px solid var(--span-color);
+}
+
+.left-section h1 {
+  font-size: 1.8rem;
+  color: var(--span-color);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.left-section h3 {
+  color: var(--primary-color-2);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 30px;
 }
 
 .contact-info,
-.references,
-.languages,
-.about {
-  margin-top: 30px;
+.about,
+.languages {
+  margin-bottom: 30px;
   text-align: left;
 }
 
 .contact-info h2,
-.references h2,
 .about h2,
 .languages h2 {
-  font-size: 16px;
   color: var(--primary-color-2);
-  border-bottom: 1px solid var(--secondary-color);
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--span-color);
 }
 
 .contact-info p,
-.references p,
-.about p,
-.languages p {
-  font-size: 14px;
-  margin-bottom: 10px;
+.about p {
   color: var(--primary-color-2);
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .language-bar {
-  display: block;
-  background-color: var(--primary-color-2);
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 4px;
+  background: var(--secondary-color-2);
+  height: 6px;
+  border-radius: 3px;
+  margin: 8px 0 15px;
 }
 
 .language-bar span {
   display: block;
   height: 100%;
-  background-color: var(--span-color);
+  background: var(--span-color);
+  border-radius: 3px;
+  transition: width 1s ease;
 }
 
+/* Right Section */
 .right-section {
-  background-color: var(--primary-color-2);
-  padding: 40px;
   width: 65%;
-  color: var(--primary-color);
-  text-align: left;
+  padding: 40px;
+  background: var(--primary-color-2);
 }
 
-body.dark-theme .right-section h2,
-body.dark-theme .right-section p {
-  color: var(--primary-color);
+.experience,
+.education,
+.skills {
+  margin-bottom: 40px;
 }
 
 .right-section h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 5px;
-}
-
-.education p,
-.experience p,
-.skills p {
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-.about {
-  margin-bottom: 30px;
-}
-
-.edu-item,
-.exp-item {
+  font-size: 1.4rem;
   margin-bottom: 20px;
-}
-
-.edu-item h3,
-.exp-item h3 {
-  font-size: 16px;
-  color: #004aad;
-  margin-bottom: 5px;
-}
-
-.edu-item p,
-.exp-item p {
-  font-size: 14px;
   color: var(--primary-color);
+  border-bottom: 2px solid var(--span-color);
+  padding-bottom: 8px;
 }
 
-.skills {
-  margin-top: 30px;
+.exp-item,
+.edu-item {
+  margin-bottom: 25px;
+}
+
+.exp-item h3 {
+  color: var(--span-color);
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.exp-item p {
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
 
 .skill-bar {
-  display: block;
-  background-color: var(--accent-color);
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 4px;
+  background: var(--secondary-color-2);
+  height: 6px;
+  border-radius: 3px;
+  margin: 8px 0 15px;
 }
 
 .skill-bar span {
   display: block;
   height: 100%;
-  background-color: #004aad;
+  background: var(--span-color);
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+/* Dark Theme Overrides */
+body.dark-theme .resume-container {
+  background: var(--primary-color);
+}
+
+body.dark-theme .right-section {
+  background: var(--primary-color);
+}
+
+body.dark-theme .right-section h2,
+body.dark-theme .right-section h3,
+body.dark-theme .right-section p {
+  color: var(--primary-color-2);
 }
 
 /* Media Queries */
+@media screen and (max-width: 1024px) {
+  .resume-container {
+    width: 95%;
+  }
+
+  .left-section,
+  .right-section {
+    padding: 30px;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .navbar .hamburger-menu {
     display: none;
@@ -447,5 +472,60 @@ body.dark-theme .right-section p {
 
   .navbar .navs .mode-toggler {
     display: none;
+  }
+
+  .resume-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .left-section,
+  .right-section {
+    width: 100%;
+  }
+
+  .left-section {
+    padding-bottom: 40px;
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .left-section h1 {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .resume-section {
+    padding: 20px 10px;
+  }
+
+  .left-section,
+  .right-section {
+    padding: 20px;
+  }
+
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+
+  .left-section h1 {
+    font-size: 1.4rem;
+  }
+
+  .left-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .right-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .exp-item h3 {
+    font-size: 1rem;
   }
 }
