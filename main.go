@@ -9,17 +9,11 @@ import (
 
 	"github.com/johneliud/my-portfolio/controllers"
 	"github.com/johneliud/my-portfolio/utils"
-	"github.com/joho/godotenv"
 )
 
 func main() {
 	if len(os.Args) < 1 || len(os.Args) > 2 {
 		fmt.Println("Usage: 'go run .' OR 'go run . [PORT]'")
-		return
-	}
-
-	if err := godotenv.Load(); err != nil {
-		log.Printf("Error loading .env file: %v\n", err)
 		return
 	}
 
