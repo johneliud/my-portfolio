@@ -354,6 +354,11 @@ main {
   margin-bottom: 10px;
 }
 
+body.dark-theme .exp-item p,
+body.dark-theme .exp-item strong {
+  color: var(--primary-color-2);
+}
+
 .skill-bar {
   background: var(--secondary-color-2);
   height: 6px;
