@@ -1,0 +1,7 @@
+[build]
+
+# Default build command
+command = "go run main.go"
+
+# Increase the build timeout to 60 minutes
+timeout = 3600
