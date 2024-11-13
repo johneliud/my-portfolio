@@ -1,6 +1,6 @@
 # my-portfolio
 
-**NOTE:** Check out the hosted site [here](https://johnodhiambo.netlify.app/)
+**NOTE:** Check out the hosted site [here](https://my-portfolio-production-1194.up.railway.app/)
 
 The significance for building this portfolio is to showcase my work and skills
 
