@@ -219,11 +219,12 @@ main {
 }
 
 .resume-section {
-  padding: 40px 20px;
+  padding: 20px;
+  text-align: center;
 }
 
 .resume-container {
-  max-width: 1200px;
+  width: 80%;
   width: 90%;
   margin: 0 auto;
   display: flex;
@@ -288,7 +289,8 @@ main {
 }
 
 .contact-info p,
-.about p {
+.about p,
+.languages p {
   color: var(--primary-color-2);
   margin-bottom: 10px;
   font-size: 0.95rem;
@@ -312,14 +314,17 @@ main {
 
 /* Right Section */
 .right-section {
+  text-align: left;
   width: 65%;
   padding: 40px;
   background: var(--primary-color-2);
+  transition: background-color var(--transition);
 }
 
 .experience,
 .education,
-.skills {
+.skills,
+.tech-stack {
   margin-bottom: 40px;
 }
 
@@ -364,7 +369,23 @@ main {
   transition: width 1s ease;
 }
 
-/* Dark Theme Overrides */
+.tech-stack .stacks {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.tech-stack .stacks i {
+  color: var(--primary-color);
+  font-size: 40px;
+}
+
+body.dark-theme .tech-stack .stacks i {
+  color: var(--primary-color-2);
+}
+
 body.dark-theme .resume-container {
   background: var(--primary-color);
 }
@@ -500,6 +521,7 @@ body.dark-theme .right-section p {
 
 @media screen and (max-width: 480px) {
   .resume-section {
+    width: 100%;
     padding: 20px 10px;
   }
 
