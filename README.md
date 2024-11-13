@@ -8,10 +8,6 @@ The significance for building this portfolio is to showcase my work and skills
 
 Running the project locally will require setting up environment variables containing required credentials neccessary for the contact form to work.
 
-### Setting up environment variables
-
--
-
 ## Installation and Usage
 
 1. Clone repository to your local development environment and navigate to the project's path.
