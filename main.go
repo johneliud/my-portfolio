@@ -9,7 +9,6 @@ import (
 
 	"github.com/johneliud/my-portfolio/controllers"
 	"github.com/johneliud/my-portfolio/utils"
-	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -18,10 +17,10 @@ func main() {
 		return
 	}
 
-	if err := godotenv.Load(); err != nil {
-		log.Printf("Error loading .env file: %v\n", err)
-		return
-	}
+	// if err := godotenv.Load(); err != nil {
+	// 	log.Printf("Error loading .env file: %v\n", err)
+	// 	return
+	// }
 
 	// Initialize BlogStore
 	blogStore, err := utils.NewBlogStore(filepath.Join(".", "data"))
