@@ -156,6 +156,15 @@ header .navbar .mode-toggler-large.dark-theme .sunny {
   display: none;
 }
 
+header .navbar .navs .change-mode {
+  background-color: var(--primary-color-2);
+  transition: background-color var(--transition);
+}
+
+body.dark-theme header .navbar .navs .change-mode {
+  background-color: var(--primary-color);
+}
+
 header .navbar .hamburger-menu {
   width: 10%;
   cursor: pointer;
@@ -215,7 +224,7 @@ main {
 
 main section {
   width: 100%;
-  margin: 10px auto;
+  margin: 0 auto;
   display: grid;
   place-items: center;
 }
@@ -226,13 +235,20 @@ main .hero .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 40px;
+  padding: 20px 0;
+}
+
+main .hero .container .profile-details,
+main .hero .container .profile-details .contact-container {
+  text-align: left;
 }
 
 main .hero .container .profile-details,
 main .hero .container .profile-image {
   width: 50%;
   display: grid;
-  row-gap: 100px;
+  row-gap: 50px;
 }
 
 main .hero .container .profile-details .introduction-container {
@@ -261,19 +277,29 @@ main .hero .container .profile-details .introduction-container p:last-child {
   font-size: 1.5rem;
 }
 
-body.dark-theme
-  main
-  .hero
-  .container
-  .profile-details
-  .introduction-container
-  p {
+body.dark-theme main .hero .container .profile-details .introduction-container p {
   color: var(--primary-color-2);
 }
 
-main .hero .container .profile-details .contact-container {
+main .hero .container .profile-image img {
   width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
 }
+
+/* Contact */
+.contact {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.contact-container {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
 
 main .hero .container .profile-details .contact-container a {
   padding: 10px 15px;
@@ -285,21 +311,6 @@ main .hero .container .profile-details .contact-container a {
 main .hero .container .profile-details .contact-container a:hover {
   background-color: var(--span-color);
   color: var(--primary-color-2);
-}
-
-main .hero .container .profile-image img {
-  width: 100%;
-}
-
-/* Contact */
-.contact {
-  width: 100%;
-  padding: 0 20px;
-}
-
-.contact-container {
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .contact h2 {
@@ -375,6 +386,20 @@ body.dark-theme .submit-btn {
 }
 
 /* Media Queries */
+@media only screen and (max-width: 1024px) {
+  main .hero .container {
+    width: 90%;
+  }
+
+  main .hero .container .profile-details .introduction-container p:first-child {
+    font-size: 32px;
+  }
+
+  main .hero .container .profile-details .introduction-container p:last-child {
+    font-size: 1.25rem;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   header .navbar .hamburger-menu {
     display: none;
@@ -458,6 +483,38 @@ body.dark-theme .submit-btn {
     display: none;
   }
 
+  main .hero .container {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  main .hero .container .profile-details,
+  main .hero .container .profile-image {
+    width: 100%;
+    row-gap: 30px;
+  }
+
+  main .hero .container .profile-image {
+    order: -1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  main .hero .container .profile-details .introduction-container p:first-child {
+    font-size: 28px;
+  }
+
+  main .hero .container .profile-details .introduction-container p:last-child {
+    font-size: 1.2rem;
+  }
+
+  main .hero .container .profile-details .contact-container {
+    display: flex;
+    justify-content: center;
+  }
+
   .contact {
     padding: 20px;
   }
@@ -470,5 +527,27 @@ body.dark-theme .submit-btn {
   .form-group textarea,
   .submit-btn {
     padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  main {
+    padding: 20px;
+  }
+
+  main .hero .container {
+    gap: 20px;
+  }
+
+  main .hero .container .profile-details .introduction-container p:first-child {
+    font-size: 24px;
+  }
+
+  main .hero .container .profile-details .introduction-container p:last-child {
+    font-size: 1rem;
+  }
+
+  main .hero .container .profile-image {
+    max-width: 300px;
   }
 }
