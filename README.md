@@ -1,2 +1,5 @@
 # my-portfolio
-My portfolio website built with HTML, CSS, JavaScript and Go.
+
+**NOTE:** This site is still in development
+
+The significance for building this portfolio is to showcase my work and skills
