@@ -494,6 +494,7 @@ body.dark-theme .submit-btn {
   main .hero .container .profile-image {
     width: 100%;
     row-gap: 30px;
+    text-align: center;
   }
 
   main .hero .container .profile-image {
