@@ -1,0 +1,13 @@
+{
+    "id": "fetching-advent-of-code-inputs-dynamically-in-go-1733375601",
+    "title": "Fetching Advent of Code Inputs Dynamically in Go",
+    "summary": "Advent of Code is a fun way to test and improve your problem-solving skills. While solving the puzzles, you might want to automate the fetching of your personalized puzzle input directly using its URL instead of copying the input to a text file that will be available locally. This article explains why this happens and how to correctly fetch your inputs dynamically using Go programming language.",
+    "content": "",
+    "date": "2024-12-05T08:13:21.411667584+03:00",
+    "readingTime": 0,
+    "tags": [
+        "go",
+        "advent-of-code"
+    ],
+    "externalUrl": "https://dev.to/johneliud/fetching-advent-of-code-inputs-dynamically-in-go-1c67"
+}
